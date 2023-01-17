@@ -17,15 +17,12 @@ import java.util.List;
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
     @GetMapping
     public ResponseEntity<List<Usuario>> listaUsuario(){
         return new ResponseEntity<>(usuarioService.findAll(), HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<Usuario> createUser(@RequestBody Usuario usuario){
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return new ResponseEntity<>(usuarioService.create(usuario), HttpStatus.CREATED);
     }
     @PutMapping

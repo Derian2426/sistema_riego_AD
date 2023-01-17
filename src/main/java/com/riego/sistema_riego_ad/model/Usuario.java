@@ -3,10 +3,11 @@ package com.riego.sistema_riego_ad.model;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
-@Table(name = "Usuario")
+@Table(name = "usuario")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,4 +71,11 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+    @OneToMany(mappedBy = "usuario")
+    private List<ZonaRiego> zonasRiego;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Notificacion> notificaciones;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<RestriccionAcceso> restriccionesAcceso;
 }
